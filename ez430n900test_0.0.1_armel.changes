@@ -1,0 +1,22 @@
+Format: 1.8
+Date: Tue, 11 Oct 2011 11:17:24 -0700
+Source: ez430n900test
+Binary: ez430n900test
+Architecture: armel
+Version: 0.0.1
+Distribution: unstable
+Urgency: low
+Maintainer: unknown <>
+Changed-By: unknown <>
+Description: 
+ ez430n900test - <insert up to 60 chars description>
+Changes: 
+ ez430n900test (0.0.1) unstable; urgency=low
+ .
+   * Initial Release.
+Checksums-Sha1: 
+ 7831209cb1c5a0bdf6ff7ad1324f9c1172519e57 272246 ez430n900test_0.0.1_armel.deb
+Checksums-Sha256: 
+ e7f3e1438174cd6466307f7b1b0336136df6c5e80a87ecd6f3787123431660fc 272246 ez430n900test_0.0.1_armel.deb
+Files: 
+ a3f5b4632b5dd8aa0dcb6d87121a78ea 272246 user/hidden optional ez430n900test_0.0.1_armel.deb

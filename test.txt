@@ -1,0 +1,144 @@
+#include "manageappliancemessages.h"
+
+#include "Appliances.h"
+#include "serviceaction.h"
+#include "serviceargumentlist.h"
+
+#include "transmitserialmessage.h"
+#include "serialstatemachine.h"
+#include <QDebug>
+
+#ifdef _WINDOWS_
+    #include "serialinterface.h"
+#elif defined _SYMBIAN_
+    #include "symbianbluetooth.h"
+#else
+    #include "UnixSerialInterface.h"
+#endif
+
+ManageApplianceMessages::ManageApplianceMessages(QHash<int, Appliances*> *ptrAppHash,
+                                                 QList<TransmitSerialMessage*> *ptrTxMessage,
+                                                 QObject *parent)
+                                                     :QThread(parent),
+                                                     appHash(ptrAppHash),
+                                                     messageQueue(ptrTxMessage)
+{
+    enabled = false;
+    stateMachine = new SerialStateMachine(30, appHash);
+    readBuffer = NULL;
+
+    bufferSize = 0;
+
+    connect(stateMachine, SIGNAL(SendSerialMessage()), this, SLOT(sendSerialMessage()));
+    connect(stateMachine, SIGNAL(ApplianceModeChanged(int)), this, SLOT(applianceModeChanged(int)));
+    connect(stateMachine, SIGNAL(ApplianceUpdated(int)), this, SLOT(applianceUpdated(int)));
+    connect(stateMachine, SIGNAL(AppliancePowerUpdated(int)), this, SLOT(appliancePowerUpdated(int)));
+    connect(stateMachine, SIGNAL(NewApplianceAdded(int)), this, SLOT(newApplianceAdded(int)));
+
+    #ifdef _WINDOWS_
+        hanInterface = new SerialInterface();
+    #elif defined _SYMBIAN_
+        hanInterface = new symbianBluetooth();
+    #else
+        hanInterface = new UnixSerialInterface();
+    #endif
+}
+
+ManageApplianceMessages::~ManageApplianceMessages()
+{
+    delete hanInterface;
+    delete stateMachine;
+}
+
+void ManageApplianceMessages::settingsChanged(HanSettings settings)
+{
+    bufferSize = settings.bufferSize;
+    if ( readBuffer != NULL )
+    {
+        delete readBuffer;
+    }
+
+    readBuffer = new char[bufferSize];
+    memset(readBuffer,0,bufferSize);
+    if ( hanInterface->configure(settings) )
+        enabled = true;
+    else
+    {
+        // we got a problem...
+        QMessageBox msg;
+        msg.setText("Unable to connect to gateway device");
+        msg.exec();
+    }
+}
+
+void ManageApplianceMessages::setEnabled(bool status)
+{
+    if ( status )
+    {
+        if (!isRunning())
+        {
+            start();
+        }
+    }
+    else
+    {
+        enabled = false;
+    }
+}
+
+void ManageApplianceMessages::run()
+{
+    int bytesRead = 0;
+    while(enabled)
+    {
+        bytesRead = hanInterface->read(readBuffer,bufferSize);
+        if ( bytesRead > 0)
+        {
+            QByteArray  x = QByteArray(readBuffer,bufferSize);
+            qDebug() << "Input 0x" << x.toHex();
+
+            readBuffer[bytesRead] = 0;
+            stateMachine->packetReceived(readBuffer, bytesRead);
+        }
+    }
+}
+
+// HAN device can receive messages now
+void ManageApplianceMessages::sendSerialMessage()
+{
+    int bytesWritten;
+    while ( messageQueue->count() > 0)
+    {
+        ptrTxMessage = messageQueue->at(0);
+        bytesWritten = hanInterface->write(ptrTxMessage->MessageToTransmit(),ptrTxMessage->GetTxMessageLength());
+
+        QByteArray  x = QByteArray(ptrTxMessage->MessageToTransmit(),ptrTxMessage->GetTxMessageLength());
+        qDebug() << "Output 0x" << x.toHex();
+
+        if (bytesWritten == ptrTxMessage->GetTxMessageLength())
+        {
+            delete ptrTxMessage;
+            messageQueue->removeAt(0);
+        }
+    }
+}
+
+void ManageApplianceMessages::applianceUpdated(int DeviceID)
+{
+    emit ApplianceUpdated(DeviceID);
+}
+
+void ManageApplianceMessages::appliancePowerUpdated(int DeviceID)
+{
+    emit AppliancePowerUpdated(DeviceID);
+}
+
+void ManageApplianceMessages::applianceModeChanged(int DeviceID)
+{
+    emit ApplianceModeChanged(DeviceID);
+}
+
+void ManageApplianceMessages::newApplianceAdded(int DeviceID)
+{
+    emit NewApplianceAdded(DeviceID);
+}
