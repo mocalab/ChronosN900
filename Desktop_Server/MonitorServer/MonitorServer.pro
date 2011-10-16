@@ -4,15 +4,21 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui network
 
 TARGET = MonitorServer
 TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    deviceinfo.cpp \
+    serverthread.cpp \
+    server.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    deviceinfo.h \
+    serverthread.h \
+    server.h
 
 FORMS    += mainwindow.ui
