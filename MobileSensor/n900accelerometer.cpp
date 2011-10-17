@@ -1,8 +1,57 @@
 #include "n900accelerometer.h"
 
-N900Accelerometer::N900Accelerometer() : x(0), y(0), z(0), oax(0), oay(0), oaz(0),ocnt(0)
+N900Accelerometer::N900Accelerometer(QObject *parent):QThread(parent)
 {
+    x = 0;
+    y = 0;
+    z = 0;
+    oax = 0;
+    oay = 0;
+    oaz = 0;
     update();
+}
+
+void N900Accelerometer::startMonitoring()
+{
+    if (  !isRunning() )
+    {
+        enabled = true;
+        start();
+    }
+}
+
+void N900Accelerometer::run()
+{
+    calibrate();
+
+    while(enabled)
+    {
+        readSmooth(&x,&y,&z);
+
+        int diff = (bx-x) + (by-y) + (bz-z);
+
+        if ( abs(diff) > 50)
+        {
+            calibrate();
+            emit deviceMoved();
+            enabled = false;
+        }
+        else
+            this->msleep(100);
+    }
+}
+
+void N900Accelerometer::calibrate()
+{
+    for ( int i=0; i < 5 ; i++)
+    {
+        readSmooth(&x,&y,&z);
+        this->msleep(100);
+    }
+
+    bx = x;
+    by = y;
+    bz = z;
 }
 
 bool N900Accelerometer::update()
@@ -35,9 +84,9 @@ void N900Accelerometer::readSmooth(int *ax,int *ay,int *az){
     {
         if(ocnt>0)
         {
-            *ax=oax+(x-oax)*0.1;
-            *ay=oay+(y-oay)*0.1;
-            *az=oaz+(z-oaz)*0.1;
+            *ax=oax+(x-oax)*0.2;
+            *ay=oay+(y-oay)*0.2;
+            *az=oaz+(z-oaz)*0.2;
         }
         else
         {

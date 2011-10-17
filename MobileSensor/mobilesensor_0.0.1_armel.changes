@@ -1,0 +1,22 @@
+Format: 1.8
+Date: Sat, 15 Oct 2011 22:27:43 -0700
+Source: mobilesensor
+Binary: mobilesensor
+Architecture: armel
+Version: 0.0.1
+Distribution: unstable
+Urgency: low
+Maintainer: unknown <>
+Changed-By: unknown <>
+Description: 
+ mobilesensor - <insert up to 60 chars description>
+Changes: 
+ mobilesensor (0.0.1) unstable; urgency=low
+ .
+   * Initial Release.
+Checksums-Sha1: 
+ f8bbd1de67ccd2ca454ade77df03cde6c7629210 570032 mobilesensor_0.0.1_armel.deb
+Checksums-Sha256: 
+ 3c881e2828ca798cc4c4f8a2d9fb0f7e07380761b47adb5fe07bf0800497c58b 570032 mobilesensor_0.0.1_armel.deb
+Files: 
+ 6e2d83f2d0b666f53124fe70049d46f0 570032 user/hidden optional mobilesensor_0.0.1_armel.deb

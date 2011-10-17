@@ -7,9 +7,10 @@ namespace Ui {
     class MainWindow;
 }
 
-class Chronos;
-class QTimer;
-class N900Accelerometer;
+
+
+class Monitor;
+
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -21,26 +22,22 @@ public:
         ScreenOrientationAuto
     };
 
-
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-    void setOrientation(ScreenOrientation orientation);
+
     void showExpanded();
 
 private:
     Ui::MainWindow *ui;
-    Chronos* chronos;
-    QTimer *timer;
-    N900Accelerometer *acc;
+    Monitor *monitor;
 
 public slots:
-    void log(QString msg);
+
 
 private slots:
-    void on_pushButton_stop_clicked();
-    void on_pushButton_start_clicked();
-    void accDataAvailible(int x, int y, int z);
-    void timerEvent();
+    void onLogEvent(QString event);
+    void openSettingsForm();
+    void resetState();
 };
 
 #endif // MAINWINDOW_H

@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'UnixSerialInterface.h'
 **
-** Created: Sat Oct 15 22:42:00 2011
+** Created: Sun Oct 16 16:13:33 2011
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.0)
 **
 ** WARNING! All changes made in this file will be lost!
