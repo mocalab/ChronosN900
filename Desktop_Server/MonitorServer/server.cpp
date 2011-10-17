@@ -8,14 +8,15 @@ Server::Server(MainWindow *parent, int port, int* nextClientID) :
         QTcpServer(parent), parent_(parent)
 {
     ServerThread::nextClientID = nextClientID;
-    this->start(port);
+    bool s = start(port);
+    int x = 111;
 }
 
 void Server::incomingConnection(int socketDescriptor)
 {
     ServerThread *thread = new ServerThread(socketDescriptor, this);
-    connect(thread,SIGNAL(packetReceived()),parent_,SLOT(packetReceived()));
-    connect(thread,SIGNAL(packetSent()),parent_,SLOT(packetSent()));
+    connect(thread,SIGNAL(deviceRegistered(DeviceInfo*)),parent_,SLOT(onDeviceRegistered(DeviceInfo*)));
+    connect(thread,SIGNAL(deviceUpdated(DeviceInfo*)),parent_,SLOT(onDeviceUpdate(DeviceInfo*)));
     connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
     thread->start();
 }

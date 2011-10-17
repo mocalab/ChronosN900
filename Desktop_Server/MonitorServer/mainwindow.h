@@ -21,9 +21,8 @@ public:
     ~MainWindow();
 
 public slots:
-    void onDeviceUpdate(DeviceInfo *devUpdate);
-    void onDeviceRegistered(DeviceInfo *devInfo);
-    int addDevice(DeviceInfo *devInfo);
+    int onDeviceUpdate(DeviceInfo *devUpdate);
+    int onDeviceRegistered(DeviceInfo *devInfo);
 
 private:
     int getDeviceIndex(DeviceInfo *devInfo);

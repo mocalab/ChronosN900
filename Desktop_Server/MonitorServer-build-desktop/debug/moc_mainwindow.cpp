@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'mainwindow.h'
 **
-** Created: Sat Oct 15 20:54:35 2011
+** Created: Sun Oct 16 15:06:47 2011
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.3)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,7 +23,7 @@ static const uint qt_meta_data_MainWindow[] = {
        5,       // revision
        0,       // classname
        0,    0, // classinfo
-       3,   14, // methods
+       2,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -31,17 +31,16 @@ static const uint qt_meta_data_MainWindow[] = {
        0,       // signalCount
 
  // slots: signature, parameters, type, tag, flags
-      22,   12,   11,   11, 0x0a,
-      58,   50,   11,   11, 0x0a,
-      94,   50,   90,   11, 0x0a,
+      26,   16,   12,   11, 0x0a,
+      62,   54,   12,   11, 0x0a,
 
        0        // eod
 };
 
 static const char qt_meta_stringdata_MainWindow[] = {
-    "MainWindow\0\0devUpdate\0onDeviceUpdate(DeviceInfo*)\0"
-    "devInfo\0onDeviceRegistered(DeviceInfo*)\0"
-    "int\0addDevice(DeviceInfo*)\0"
+    "MainWindow\0\0int\0devUpdate\0"
+    "onDeviceUpdate(DeviceInfo*)\0devInfo\0"
+    "onDeviceRegistered(DeviceInfo*)\0"
 };
 
 const QMetaObject MainWindow::staticMetaObject = {
@@ -73,13 +72,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
         switch (_id) {
-        case 0: onDeviceUpdate((*reinterpret_cast< DeviceInfo*(*)>(_a[1]))); break;
-        case 1: onDeviceRegistered((*reinterpret_cast< DeviceInfo*(*)>(_a[1]))); break;
-        case 2: { int _r = addDevice((*reinterpret_cast< DeviceInfo*(*)>(_a[1])));
+        case 0: { int _r = onDeviceUpdate((*reinterpret_cast< DeviceInfo*(*)>(_a[1])));
+            if (_a[0]) *reinterpret_cast< int*>(_a[0]) = _r; }  break;
+        case 1: { int _r = onDeviceRegistered((*reinterpret_cast< DeviceInfo*(*)>(_a[1])));
             if (_a[0]) *reinterpret_cast< int*>(_a[0]) = _r; }  break;
         default: ;
         }
-        _id -= 3;
+        _id -= 2;
     }
     return _id;
 }

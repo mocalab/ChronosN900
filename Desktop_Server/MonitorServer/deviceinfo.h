@@ -6,7 +6,7 @@
 static QString StateName[] = {
     "NA",
     "OFF",
-    "ON",
+    "OK",
     "ERROR",
     "ALERT"};
 
@@ -23,8 +23,8 @@ struct StateCodes{
 
 static QString ErrorName[] = {
     "NA",
-    "SERIAL",
-    "CHRONOS",
+    "Serial Port",
+    "Chronos Lost",
     "ACCELEROMETER",
     "OTHER"};
 
@@ -66,8 +66,7 @@ public:
     DeviceInfo(int ID,
                QString address,
                int stateCode,
-               int errorCode,
-               int alertCode);
+               int errorCode);
 
     DeviceInfo(int ID,
                QString address);
@@ -76,7 +75,6 @@ public:
     QString address;
     int stateCode;
     int errorCode;
-    int alertCode;
 };
 
 #endif // DEVICEINFO_H

@@ -35,7 +35,7 @@ MainWindow::~MainWindow()
 void MainWindow::loadSettings()
 {
     QSettings settings(SETTINGS_FILE,QSettings::IniFormat);
-    this->serverPort = settings.value("port",5555).toInt();
+    this->serverPort = settings.value("port",55555).toInt();
     this->nextclientID = settings.value("nextClientID",0).toInt();
 
     int devCnt = settings.beginReadArray("devices");
@@ -49,7 +49,6 @@ void MainWindow::loadSettings()
         ui->tableWidget->setItem(row,TableColumns::DEV_ADDR   ,new QTableWidgetItem( settings.value("addr").toString() ));
         ui->tableWidget->setItem(row,TableColumns::DEV_STATE  ,new QTableWidgetItem( settings.value("state").toString() ));
         ui->tableWidget->setItem(row,TableColumns::DEV_ERROR  ,new QTableWidgetItem( settings.value("error").toString() ));
-        ui->tableWidget->setItem(row,TableColumns::DEV_ALERT  ,new QTableWidgetItem( settings.value("alert").toString() ));
     }
     settings.endArray();
 }
@@ -71,12 +70,12 @@ void MainWindow::saveDeviceInfo()
         settings.setValue("addr",   ui->tableWidget->item(i,TableColumns::DEV_ADDR)->text() );
         settings.setValue("state",  ui->tableWidget->item(i,TableColumns::DEV_STATE)->text() );
         settings.setValue("error",  ui->tableWidget->item(i,TableColumns::DEV_ERROR)->text() );
-        settings.setValue("alert",  ui->tableWidget->item(i,TableColumns::DEV_ALERT)->text() );
+
     }
     settings.endArray();
 }
 
-int MainWindow::addDevice(DeviceInfo *dev){
+int MainWindow::onDeviceRegistered(DeviceInfo *dev){
     int row = getDeviceIndex(dev);
     if ( row == -1 )
     {
@@ -87,19 +86,28 @@ int MainWindow::addDevice(DeviceInfo *dev){
     ui->tableWidget->setItem(row,TableColumns::DEV_ID     ,new QTableWidgetItem(QString::number(dev->ID)));
     ui->tableWidget->setItem(row,TableColumns::DEV_ADDR   ,new QTableWidgetItem(dev->address));
     ui->tableWidget->setItem(row,TableColumns::DEV_STATE  ,new QTableWidgetItem( StateName[dev->stateCode] ));
-    ui->tableWidget->setItem(row,TableColumns::DEV_ERROR  ,new QTableWidgetItem( ErrorName[dev->stateCode] ));
-    ui->tableWidget->setItem(row,TableColumns::DEV_ALERT  ,new QTableWidgetItem( AlertName[dev->stateCode] ));
-
+    ui->tableWidget->setItem(row,TableColumns::DEV_ERROR  ,new QTableWidgetItem( "NA" ));
     return row;
 }
 
-void MainWindow::onDeviceUpdate(DeviceInfo *dev){
+int MainWindow::onDeviceUpdate(DeviceInfo *dev){
+    int row = getDeviceIndex(dev);
+    if ( row == -1 )
+    {
+        row = ui->tableWidget->rowCount();
+        ui->tableWidget->insertRow(row);
+    }
 
-}
+    ui->tableWidget->setItem(row,TableColumns::DEV_ID     ,new QTableWidgetItem(QString::number(dev->ID)));
+    ui->tableWidget->setItem(row,TableColumns::DEV_ADDR   ,new QTableWidgetItem(dev->address));
+    ui->tableWidget->setItem(row,TableColumns::DEV_STATE  ,new QTableWidgetItem( StateName[dev->stateCode] ));
 
-
-void MainWindow::onDeviceRegistered(DeviceInfo *dev){
-
+    if ( dev->stateCode == StateCodes::ERROR)
+        ui->tableWidget->setItem(row,TableColumns::DEV_ERROR  ,new QTableWidgetItem( ErrorName[dev->errorCode] ));
+    else if (dev->stateCode == StateCodes::ALERT)
+        ui->tableWidget->setItem(row,TableColumns::DEV_ERROR  ,new QTableWidgetItem( AlertName[dev->errorCode] ));
+    else
+        ui->tableWidget->setItem(row,TableColumns::DEV_ERROR  ,new QTableWidgetItem( "NA" ));
 }
 
 int MainWindow::getDeviceIndex(DeviceInfo *dev){

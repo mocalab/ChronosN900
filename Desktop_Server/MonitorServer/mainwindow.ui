@@ -53,7 +53,7 @@
       </column>
       <column>
        <property name="text">
-        <string>Extra</string>
+        <string>Cause</string>
        </property>
       </column>
       <column>

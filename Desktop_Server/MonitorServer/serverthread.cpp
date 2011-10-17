@@ -32,10 +32,10 @@ void ServerThread::run()
     QDataStream in(&tcpSocket);
     in.setVersion(QDataStream::Qt_4_7);
 
-    if ( !waitForBytesReceived(tcpSocket, sizeof(quint8)) )
+    if ( !waitForBytesReceived(tcpSocket, sizeof(int)) )
         return;
 
-    quint8 packetType;
+    int packetType;
     in >> packetType;
 
     switch(packetType)
@@ -67,9 +67,10 @@ void ServerThread::handleClientRegistration(QTcpSocket& socket)
     socket.write(block);
     socket.waitForBytesWritten();
 
+    QString devAddress = socket.peerAddress().toString();
     DeviceInfo *newDev = new DeviceInfo(
                 assignedID,
-                "address");
+                devAddress);
 
     emit deviceRegistered(newDev);
 }
@@ -83,18 +84,15 @@ void ServerThread::handleStatusUpdate(QTcpSocket& socket)
     int devID;
     int stateCode;
     int errorCode;
-    int alertcode;
 
     in >> devID;
     in >> stateCode;
     in >> errorCode;
-    in >> alertcode;
 
     DeviceInfo *dev = new DeviceInfo(devID,
                                      devAddress,
                                      stateCode,
-                                     errorCode,
-                                     alertcode
+                                     errorCode
                                      );
     emit deviceUpdated(dev);
 }

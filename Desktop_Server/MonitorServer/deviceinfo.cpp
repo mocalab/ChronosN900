@@ -4,15 +4,13 @@ DeviceInfo::DeviceInfo(
     int ID,
     QString address,
     int stateCode,
-    int errorCode,
-    int alertCode)
+    int errorCode)
 {
     this->ID = ID;
     this->address = address;
 
     this->stateCode = stateCode;
     this->errorCode = errorCode;
-    this->alertCode = alertCode;
 }
 
 
@@ -25,5 +23,4 @@ DeviceInfo::DeviceInfo(
 
     this->stateCode = StateCodes::NA;
     this->errorCode = ErrorCodes::NA;
-    this->alertCode = AlertCodes::NA;
 }
