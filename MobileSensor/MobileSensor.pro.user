@@ -18,7 +18,7 @@
    <value key="ProjectExplorer.ProjectConfiguration.Id" type="QString">Qt4ProjectManager.Target.MaemoDeviceTarget</value>
    <value key="ProjectExplorer.Target.ActiveBuildConfiguration" type="int">1</value>
    <value key="ProjectExplorer.Target.ActiveDeployConfiguration" type="int">0</value>
-   <value key="ProjectExplorer.Target.ActiveRunConfiguration" type="int">0</value>
+   <value key="ProjectExplorer.Target.ActiveRunConfiguration" type="int">1</value>
    <valuemap key="ProjectExplorer.Target.BuildConfiguration.0" type="QVariantMap">
     <valuemap key="ProjectExplorer.BuildConfiguration.BuildStepList.0" type="QVariantMap">
      <valuemap key="ProjectExplorer.BuildStepList.Step.0" type="QVariantMap">
@@ -134,10 +134,22 @@
       <value key="ProjectExplorer.ProjectConfiguration.Id" type="QString">Qt4ProjectManager.MaemoDeployStep</value>
       <value key="Qt4ProjectManager.MaemoRunConfiguration.DeployToSysroot" type="bool">false</value>
       <value key="Qt4ProjectManager.MaemoRunConfiguration.DeviceId" type="qulonglong">9</value>
-      <valuelist key="Qt4ProjectManager.MaemoRunConfiguration.LastDeployedFiles" type="QVariantList"/>
-      <valuelist key="Qt4ProjectManager.MaemoRunConfiguration.LastDeployedHosts" type="QVariantList"/>
-      <valuelist key="Qt4ProjectManager.MaemoRunConfiguration.LastDeployedRemotePaths" type="QVariantList"/>
-      <valuelist key="Qt4ProjectManager.MaemoRunConfiguration.LastDeployedTimes" type="QVariantList"/>
+      <valuelist key="Qt4ProjectManager.MaemoRunConfiguration.LastDeployedFiles" type="QVariantList">
+       <value type="QString">C:/monitor/MobileSensor/mobilesensor_0.0.1_armel.deb</value>
+       <value type="QString">C:/monitor/MobileSensor/mobilesensor_0.0.1_armel.deb</value>
+      </valuelist>
+      <valuelist key="Qt4ProjectManager.MaemoRunConfiguration.LastDeployedHosts" type="QVariantList">
+       <value type="QString">192.168.2.15</value>
+       <value type="QString">192.168.0.110</value>
+      </valuelist>
+      <valuelist key="Qt4ProjectManager.MaemoRunConfiguration.LastDeployedRemotePaths" type="QVariantList">
+       <value type="QString"></value>
+       <value type="QString"></value>
+      </valuelist>
+      <valuelist key="Qt4ProjectManager.MaemoRunConfiguration.LastDeployedTimes" type="QVariantList">
+       <value type="QDateTime">2011-10-16T16:38:08</value>
+       <value type="QDateTime">2011-10-16T17:12:43</value>
+      </valuelist>
      </valuemap>
      <value key="ProjectExplorer.BuildStepList.StepsCount" type="int">2</value>
      <value key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName" type="QString">Deploy</value>
@@ -165,7 +177,22 @@
     <value key="RunConfiguration.UseCppDebugger" type="bool">true</value>
     <value key="RunConfiguration.UseQmlDebugger" type="bool">false</value>
    </valuemap>
-   <value key="ProjectExplorer.Target.RunConfigurationCount" type="int">1</value>
+   <valuemap key="ProjectExplorer.Target.RunConfiguration.1" type="QVariantMap">
+    <value key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName" type="QString">MobileSensor</value>
+    <value key="ProjectExplorer.ProjectConfiguration.DisplayName" type="QString">MobileSensor2</value>
+    <value key="ProjectExplorer.ProjectConfiguration.Id" type="QString">Qt4ProjectManager.MaemoRunConfiguration</value>
+    <valuelist key="Qt4ProjectManager.MaemoRunConfiguration.Arguments" type="QVariantList"/>
+    <value key="Qt4ProjectManager.MaemoRunConfiguration.BaseEnvironmentBase" type="int">1</value>
+    <valuelist key="Qt4ProjectManager.MaemoRunConfiguration.ExportedLocalDirs" type="QVariantList"/>
+    <value key="Qt4ProjectManager.MaemoRunConfiguration.ProFile" type="QString">MobileSensor.pro</value>
+    <valuelist key="Qt4ProjectManager.MaemoRunConfiguration.RemoteMountPoints" type="QVariantList"/>
+    <value key="Qt4ProjectManager.MaemoRunConfiguration.UseRemoteGdb" type="bool">false</value>
+    <valuelist key="Qt4ProjectManager.MaemoRunConfiguration.UserEnvironmentChanges" type="QVariantList"/>
+    <value key="RunConfiguration.QmlDebugServerPort" type="uint">3768</value>
+    <value key="RunConfiguration.UseCppDebugger" type="bool">true</value>
+    <value key="RunConfiguration.UseQmlDebugger" type="bool">false</value>
+   </valuemap>
+   <value key="ProjectExplorer.Target.RunConfigurationCount" type="int">2</value>
   </valuemap>
  </data>
  <data>

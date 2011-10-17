@@ -24,13 +24,18 @@ SOURCES += main.cpp mainwindow.cpp \
     client.cpp \
     Chronos.cpp \
     UnixSerialInterface.cpp \
-    n900accelerometer.cpp
+    n900accelerometer.cpp \
+    monitor.cpp \
+    settingsdialog.cpp
 HEADERS += mainwindow.h \
     client.h \
     Chronos.h \
     UnixSerialInterface.h \
-    n900accelerometer.h
-FORMS += mainwindow.ui
+    n900accelerometer.h \
+    monitor.h \
+    settingsdialog.h
+FORMS += mainwindow.ui \
+    settingsdialog.ui
 
 # Please do not modify the following two lines. Required for deployment.
 include(deployment.pri)
